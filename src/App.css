@@ -1,4 +1,15 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+.App {
+  height: 100vh;
+}
 .App__Content {
-  display: flex;
-  justify-content: space-between;
+  top: 6rem;
+  bottom: 6rem;
+  position: absolute;
+  right: 0;
+  left: 0;
+  background-color: #d9d8d8;
 }

@@ -1,0 +1,12 @@
+.Header {
+  height: 6rem;
+  background-color: #fea218;
+  top: 0;
+  left: 0;
+  right: 0;
+  position: absolute;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  padding-left: 2rem;
+}
