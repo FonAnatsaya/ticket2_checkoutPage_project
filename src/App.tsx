@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div className="App__Content">
         <Tickets />
         <Cart />
       </div>
