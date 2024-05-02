@@ -27,11 +27,14 @@
   gap: 12px;
 }
 .Cart__TicketSummary__TicketDetails__Left__IMG {
-  background-color: #d9d8d8;
-  min-height: 7vh;
-  min-width: 5vw;
+  height: 50px;
+  min-width: 30px;
   text-align: center;
   align-content: center;
+}
+.Cart__TicketSummary__TicketDetails__Left__IMG > img {
+  max-width: 100%;
+  max-height: 100%;
 }
 .Cart__TicketSummary__TicketDetails__Left__TicketLabel {
   display: flex;

@@ -2,39 +2,55 @@ import "./Cart.css";
 import React from "react";
 import { Ticket } from "./Tickets";
 
-export type CheckedoutTicket = {
-  title: string;
-  price: number;
-  img: string;
+export type CartTicket = {
+  ticket: Ticket;
+  quantity: number;
+};
+
+export type CheckoutTicket = {
+  [key: number]: CartTicket;
 };
 
 type CartProp = {
-  tickets: Ticket[];
-  checkedoutTickets: CheckedoutTicket[];
+  checkedoutTickets: CheckoutTicket;
 };
 
-const Cart: React.FC<CartProp> = ({ tickets, checkedoutTickets }) => {
+const Cart: React.FC<CartProp> = ({
+  checkedoutTickets,
+  // increaseOrDecrease,
+}) => {
   return (
     <div className="Cart">
       <div className="Cart__TicketSummary">
         <div className="Cart__TicketSummary__CartLabel">Cart</div>
-        <div className="Cart__TicketSummary__TicketDetails">
-          <div className="Cart__TicketSummary__TicketDetails__Left">
-            <div className="Cart__TicketSummary__TicketDetails__Left__IMG">
-              IMG
+        {Object.keys(checkedoutTickets).map((key) => {
+          const ticketId = parseInt(key);
+          const cartTicket = checkedoutTickets[ticketId];
+          return (
+            <div
+              key={cartTicket.ticket.id}
+              className="Cart__TicketSummary__TicketDetails"
+            >
+              <div className="Cart__TicketSummary__TicketDetails__Left">
+                <div className="Cart__TicketSummary__TicketDetails__Left__IMG">
+                  <img
+                    src={require(`../assets/tickets/${cartTicket.ticket.img}`)}
+                    alt={cartTicket.ticket.title}
+                  ></img>
+                </div>
+                <div className="Cart__TicketSummary__TicketDetails__Left__TicketLabel">
+                  <h3>{cartTicket.ticket.title}</h3>
+                  <h4>{cartTicket.ticket.price} THB</h4>
+                </div>
+              </div>
+              <div className="Cart__TicketSummary__TicketDetails__Right">
+                <button>-</button>
+                <div>{cartTicket.quantity}</div>
+                <button>+</button>
+              </div>
             </div>
-            <div className="Cart__TicketSummary__TicketDetails__Left__TicketLabel">
-              <h3>Siam Amazing Park</h3>
-              <h4>1,000 THB</h4>
-            </div>
-          </div>
-          <div className="Cart__TicketSummary__TicketDetails__Right">
-            {" "}
-            <button>-</button>
-            <div>1</div>
-            <button>+</button>
-          </div>
-        </div>
+          );
+        })}
       </div>
       <div className="Cart__PriceSummary">
         <div className=" Cart__PriceSummary__Display">

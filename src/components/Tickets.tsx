@@ -2,6 +2,7 @@ import "./Tickets.css";
 import React, { Component } from "react";
 
 export type Ticket = {
+  id: number;
   title: string;
   descriptionEng: string;
   descriptionThai: string;
@@ -23,10 +24,13 @@ const Tickets: React.FC<TicketListProp> = ({
       <div className="Tickets__TopLabel">Tickets</div>
       {tickets.map((ticket) => {
         return (
-          <div className="Tickets__Item1">
+          <div key={ticket.id} className="Tickets__Item1">
             <div className="Tickets__Item1__LeftDetail">
               <div className="Tickets__Item1__LeftDetail__IMG">
-                <img src={require(`../assets/tickets/${ticket.img}`)}></img>
+                <img
+                  src={require(`../assets/tickets/${ticket.img}`)}
+                  alt={ticket.title}
+                ></img>
               </div>
               <div>
                 <h2>{ticket.title}</h2>
