@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   background-color: #fefffe;
-  min-width: 48%;
+  min-width: 68%;
   min-height: 374px;
 }
 .Tickets__TopLabel {
   border: 1px solid black;
-  height: 8vh;
+  height: 68px;
   text-align: center;
   align-content: center;
   font-size: 23px;
@@ -17,8 +17,7 @@
   min-height: 12vh;
   display: flex;
   justify-content: space-between;
-  padding-left: 14px;
-  padding-right: 14px;
+  padding: 0 14px;
 }
 .Tickets__Item1__LeftDetail {
   display: flex;
@@ -29,7 +28,7 @@
 }
 .Tickets__Item1__LeftDetail__IMG {
   height: 100%;
-  min-width: 4vw;
+  min-width: 6vw;
   background-color: #d9d8d8;
   text-align: center;
   align-content: center;
@@ -41,8 +40,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 12px 0;
 }
 .Tickets__Item1__RightDetail__Button {
   height: 100%;
