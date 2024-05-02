@@ -1,0 +1,70 @@
+.Cart {
+  display: flex;
+  flex-direction: column;
+  background-color: #fefffe;
+  min-width: 28%;
+  min-height: 374px;
+  justify-content: space-between;
+}
+.Cart__TicketSummary__CartLabel {
+  border: 1px solid black;
+  min-height: 68px;
+  text-align: center;
+  align-content: center;
+  font-size: 23px;
+}
+.Cart__TicketSummary__TicketDetails {
+  border: 1px solid black;
+  min-height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+}
+.Cart__TicketSummary__TicketDetails__Left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.Cart__TicketSummary__TicketDetails__Left__IMG {
+  background-color: #d9d8d8;
+  min-height: 7vh;
+  min-width: 5vw;
+  text-align: center;
+  align-content: center;
+}
+.Cart__TicketSummary__TicketDetails__Left__TicketLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.Cart__TicketSummary__TicketDetails__Right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.Cart__TicketSummary__TicketDetails__Right button {
+  border: none;
+  background-color: #d9d8d8;
+  min-height: 36px;
+  min-width: 36px;
+}
+.Cart__PriceSummary__Display {
+  border: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 6vh;
+  padding: 10px;
+  font-size: 20px;
+}
+.Cart__PriceSummary__Discount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.Cart__PriceSummary__Discount__box {
+  border: 1px solid black;
+  min-width: 8vw;
+  min-height: 2.4vh;
+}
