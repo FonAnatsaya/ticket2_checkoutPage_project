@@ -1,5 +1,19 @@
 import "./Cart.css";
-const Cart = () => {
+import React from "react";
+import { Ticket } from "./Tickets";
+
+export type CheckedoutTicket = {
+  title: string;
+  price: number;
+  img: string;
+};
+
+type CartProp = {
+  tickets: Ticket[];
+  checkedoutTickets: CheckedoutTicket[];
+};
+
+const Cart: React.FC<CartProp> = ({ tickets, checkedoutTickets }) => {
   return (
     <div className="Cart">
       <div className="Cart__TicketSummary">

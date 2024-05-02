@@ -28,10 +28,14 @@
 }
 .Tickets__Item1__LeftDetail__IMG {
   height: 100%;
-  min-width: 6vw;
+  min-width: 50px;
   background-color: #d9d8d8;
   text-align: center;
   align-content: center;
+}
+.Tickets__Item1__LeftDetail__IMG > img {
+  max-width: 100%;
+  max-height: 100%;
 }
 .Tickets__Item1__LeftDetail p {
   color: #696968;
