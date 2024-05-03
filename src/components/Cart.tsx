@@ -13,11 +13,12 @@ export type CheckoutTicket = {
 
 type CartProp = {
   checkedoutTickets: CheckoutTicket;
+  increaseOrDecrease: (id: number, operator: string) => void;
 };
 
 const Cart: React.FC<CartProp> = ({
   checkedoutTickets,
-  // increaseOrDecrease,
+  increaseOrDecrease,
 }) => {
   return (
     <div className="Cart">
@@ -44,9 +45,17 @@ const Cart: React.FC<CartProp> = ({
                 </div>
               </div>
               <div className="Cart__TicketSummary__TicketDetails__Right">
-                <button>-</button>
+                <button
+                  onClick={() => increaseOrDecrease(cartTicket.ticket.id, "-")}
+                >
+                  -
+                </button>
                 <div>{cartTicket.quantity}</div>
-                <button>+</button>
+                <button
+                  onClick={() => increaseOrDecrease(cartTicket.ticket.id, "+")}
+                >
+                  +
+                </button>
               </div>
             </div>
           );

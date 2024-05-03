@@ -15,39 +15,45 @@ function App() {
   const createdCheckedoutTickets = (ticket: Ticket) => {
     setCheckedoutTickets((prev) => {
       if (prev.hasOwnProperty(ticket.id)) {
-        const updateTicket = prev[ticket.id];
-        const updated: CartTicket = {
-          ticket: updateTicket.ticket,
-          quantity: updateTicket.quantity + 1,
+        const selectedTicket = prev[ticket.id];
+        const updatedCart: CartTicket = {
+          ticket: selectedTicket.ticket,
+          quantity: selectedTicket.quantity + 1,
         };
-        return {
-          ...prev,
-          [ticket.id]: updated,
-        };
+        return { ...prev, [ticket.id]: updatedCart };
       } else {
-        const newTicket: CartTicket = {
-          ticket: ticket,
+        const newCart: CartTicket = {
+          ticket,
           quantity: 1,
         };
-        return {
-          ...prev,
-          [ticket.id]: newTicket,
-        };
+        return { ...prev, [ticket.id]: newCart };
       }
     });
   };
 
-  const increaseOrDecrease = (id: number, operation: boolean) => {
-    // setCheckedoutTickets((prev) => {
-    //   const newCheckedoutTickets = new Map(prev);
-    //   const tmp = newCheckedoutTickets.get(ticket.id);
-    //   if (tmp) {
-    //     newCheckedoutTickets.set(ticket.id, { ...ticket, quantity: 1 });
-    //   } else {
-    //     newCheckedoutTickets.set(ticket.id, { ...ticket, quantity: 1 });
-    //   }
-    //   return newCheckedoutTickets;
-    // });
+  const increaseOrDecrease = (id: number, operator: string) => {
+    setCheckedoutTickets((prev) => {
+      console.log(prev);
+      const editedTicket = prev[id];
+      if (operator === "+") {
+        const updatedQuantityTicket: CartTicket = {
+          ticket: editedTicket.ticket,
+          quantity: editedTicket.quantity + 1,
+        };
+        return { ...prev, [id]: updatedQuantityTicket };
+      } else {
+        if (editedTicket.quantity === 1) {
+          const { [id]: omit, ...rest } = prev;
+          return { ...rest };
+        } else {
+          const updatedQuantityTicket: CartTicket = {
+            ticket: editedTicket.ticket,
+            quantity: editedTicket.quantity - 1,
+          };
+          return { ...prev, [id]: updatedQuantityTicket };
+        }
+      }
+    });
   };
 
   return (
@@ -60,7 +66,7 @@ function App() {
         />
         <Cart
           checkedoutTickets={checkedoutTickets}
-          // increaseOrDecrease={increaseOrDecrease}
+          increaseOrDecrease={increaseOrDecrease}
         />
       </div>
       <Footer />
