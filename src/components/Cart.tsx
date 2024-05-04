@@ -14,15 +14,26 @@ export type CheckoutTicket = {
 type CartProp = {
   checkedoutTickets: CheckoutTicket;
   increaseOrDecrease: (id: number, operator: string) => void;
+  hasDiscount: (inputCode: string, totalPrice: number) => number;
 };
 
 const Cart: React.FC<CartProp> = ({
   checkedoutTickets,
   increaseOrDecrease,
+  hasDiscount,
 }) => {
-  const calculateTotalPrice = () => {
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [discountCode, setDiscountCode] = useState<string>("");
+  const [discount, setDiscount] = useState<number>(0);
+
+  const calculateDiscount = (inputDiscount: string, price: number) => {
+    const discountValue: number = hasDiscount(inputDiscount, price);
+    setDiscount(discountValue);
+  };
+
+  useEffect(() => {
     const totalTicketCarts = Object.values(checkedoutTickets);
-    const summaryPrice = totalTicketCarts.reduce(
+    const totalPrice = totalTicketCarts.reduce(
       (total: number, ticketCart: CartTicket) => {
         const ticketPrice: number =
           ticketCart.quantity * ticketCart.ticket.price;
@@ -30,8 +41,18 @@ const Cart: React.FC<CartProp> = ({
       },
       0
     );
-    return summaryPrice;
+    setTotalPrice(totalPrice);
+    calculateDiscount(discountCode, totalPrice);
+  }, [checkedoutTickets]);
+
+  const onDiscountCodeChange = (value: string) => {
+    setDiscountCode(value);
   };
+
+  const handleApplybutton = () => {
+    calculateDiscount(discountCode, totalPrice);
+  };
+  const netTotal = totalPrice - discount;
 
   return (
     <div className="Cart">
@@ -75,18 +96,30 @@ const Cart: React.FC<CartProp> = ({
       <div className="Cart__PriceSummary">
         <div className=" Cart__PriceSummary__Display">
           <span>Total</span>
-          <span>{checkedoutTickets ? calculateTotalPrice() : 0} THB</span>
+          <span>{totalPrice} THB</span>
         </div>
         <div className="Cart__PriceSummary__Display">
           <div className="Cart__PriceSummary__Discount">
             <span>Discount</span>
-            <div className="Cart__PriceSummary__Discount__box"></div>
+            <input
+              className="Cart__PriceSummary__Discount__input"
+              placeholder="discount code"
+              name="discountValue"
+              value={discountCode}
+              onChange={(evt) => onDiscountCodeChange(evt.target.value)}
+            ></input>
+            <button
+              className="Cart__PriceSummary__Discount__button"
+              onClick={handleApplybutton}
+            >
+              APPLY
+            </button>
           </div>
-          <span>0 THB</span>
+          <span>{discount} THB</span>
         </div>
         <div className=" Cart__PriceSummary__Display">
           <span>Grand Total</span>
-          <span>900 THB</span>
+          <span>{netTotal < 0 ? 0 : netTotal}THB</span>
         </div>
       </div>
     </div>

@@ -66,8 +66,14 @@
   align-items: center;
   gap: 10px;
 }
-.Cart__PriceSummary__Discount__box {
+.Cart__PriceSummary__Discount__input {
   border: 1px solid black;
-  min-width: 8vw;
-  min-height: 2.4vh;
+  width: 8vw;
+  height: 24px;
+}
+.Cart__PriceSummary__Discount__button {
+  background-color: #d9d8d8;
+  border: none;
+  min-width: 24px;
+  min-height: 24px;
 }

@@ -1,0 +1,17 @@
+export const discounts = [
+  {
+    code: "10%Off",
+    discount: 10,
+    type: "percentage",
+  },
+  {
+    code: "200OFF",
+    discount: 200,
+    type: "amount",
+  },
+  {
+    code: "50%Off",
+    discount: 50,
+    type: "percentage",
+  },
+];

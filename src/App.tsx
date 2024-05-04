@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Tickets, { Ticket } from "./components/Tickets";
 import { ticketListsData } from "./ConstantData";
+import { discounts } from "./ConstantDiscounts";
 
 function App() {
   const [ticketLists, setTicketLists] = useState<Ticket[]>(ticketListsData);
@@ -55,6 +56,19 @@ function App() {
     });
   };
 
+  const hasDiscount = (inputCode: string, totalPrice: number) => {
+    let discountValue: number = 0;
+    discounts.forEach((each) => {
+      if (inputCode === each.code) {
+        discountValue =
+          each.type === "percentage"
+            ? (each.discount / 100) * totalPrice
+            : each.discount;
+      }
+    });
+    return discountValue;
+  };
+
   return (
     <div className="App">
       <Header />
@@ -66,6 +80,7 @@ function App() {
         <Cart
           checkedoutTickets={checkedoutTickets}
           increaseOrDecrease={increaseOrDecrease}
+          hasDiscount={hasDiscount}
         />
       </div>
       <Footer />
