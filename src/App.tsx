@@ -33,7 +33,6 @@ function App() {
 
   const increaseOrDecrease = (id: number, operator: string) => {
     setCheckedoutTickets((prev) => {
-      console.log(prev);
       const editedTicket = prev[id];
       if (operator === "+") {
         const updatedQuantityTicket: CartTicket = {

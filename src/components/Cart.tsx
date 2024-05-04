@@ -1,5 +1,5 @@
 import "./Cart.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Ticket } from "./Tickets";
 
 export type CartTicket = {
@@ -20,6 +20,19 @@ const Cart: React.FC<CartProp> = ({
   checkedoutTickets,
   increaseOrDecrease,
 }) => {
+  const calculateTotalPrice = () => {
+    const totalTicketCarts = Object.values(checkedoutTickets);
+    const summaryPrice = totalTicketCarts.reduce(
+      (total: number, ticketCart: CartTicket) => {
+        const ticketPrice: number =
+          ticketCart.quantity * ticketCart.ticket.price;
+        return ticketPrice + total;
+      },
+      0
+    );
+    return summaryPrice;
+  };
+
   return (
     <div className="Cart">
       <div className="Cart__TicketSummary">
@@ -64,14 +77,14 @@ const Cart: React.FC<CartProp> = ({
       <div className="Cart__PriceSummary">
         <div className=" Cart__PriceSummary__Display">
           <span>Total</span>
-          <span>1,000 THB</span>
+          <span>{checkedoutTickets ? calculateTotalPrice() : 0} THB</span>
         </div>
         <div className="Cart__PriceSummary__Display">
           <div className="Cart__PriceSummary__Discount">
             <span>Discount</span>
             <div className="Cart__PriceSummary__Discount__box"></div>
           </div>
-          <span>100 THB</span>
+          <span>0 THB</span>
         </div>
         <div className=" Cart__PriceSummary__Display">
           <span>Grand Total</span>
