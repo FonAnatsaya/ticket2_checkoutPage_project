@@ -37,9 +37,7 @@ const Cart: React.FC<CartProp> = ({
     <div className="Cart">
       <div className="Cart__TicketSummary">
         <div className="Cart__TicketSummary__CartLabel">Cart</div>
-        {Object.keys(checkedoutTickets).map((key) => {
-          const ticketId = parseInt(key);
-          const cartTicket = checkedoutTickets[ticketId];
+        {Object.values(checkedoutTickets).map((cartTicket) => {
           return (
             <div
               key={cartTicket.ticket.id}
