@@ -6,7 +6,6 @@ import Cart, { CartTicket, CheckoutTicket } from "./components/Cart";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Tickets, { Ticket } from "./components/Tickets";
-import { discounts } from "./ConstantDiscounts";
 
 function App() {
   const [ticketLists, setTicketLists] = useState<Ticket[]>([]);
