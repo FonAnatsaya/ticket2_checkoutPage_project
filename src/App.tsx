@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Cart, { CartTicket, CheckoutTicket } from "./components/Cart";
 import Footer from "./components/Footer";
@@ -12,22 +12,38 @@ function App() {
   const [checkedoutTickets, setCheckedoutTickets] = useState<CheckoutTicket>(
     {}
   );
+  useEffect(() => {
+    const cartTicketsString = localStorage.getItem("cartTickets");
+    const cartTicketsObject: CheckoutTicket =
+      cartTicketsString && JSON.parse(cartTicketsString);
+    setCheckedoutTickets(cartTicketsObject);
+  }, []);
+
+  const updateCheckedoutTickets = (
+    prev: CheckoutTicket,
+    ticket: Ticket,
+    quantity: number
+  ): CheckoutTicket => {
+    const updatedCheckedoutTickets = {
+      ...prev,
+      [ticket.id]: {
+        ticket,
+        quantity,
+      },
+    };
+    const cartTickets = JSON.stringify(updatedCheckedoutTickets);
+    localStorage.setItem("cartTickets", cartTickets);
+    return updatedCheckedoutTickets;
+  };
 
   const createdCheckedoutTickets = (ticket: Ticket) => {
     setCheckedoutTickets((prev) => {
       if (prev.hasOwnProperty(ticket.id)) {
         const selectedTicket = prev[ticket.id];
-        const updatedCart: CartTicket = {
-          ticket: selectedTicket.ticket,
-          quantity: selectedTicket.quantity + 1,
-        };
-        return { ...prev, [ticket.id]: updatedCart };
+        const ticketQuantity: number = selectedTicket.quantity + 1;
+        return updateCheckedoutTickets(prev, ticket, ticketQuantity);
       } else {
-        const newCart: CartTicket = {
-          ticket,
-          quantity: 1,
-        };
-        return { ...prev, [ticket.id]: newCart };
+        return updateCheckedoutTickets(prev, ticket, 1);
       }
     });
   };
@@ -40,17 +56,28 @@ function App() {
           ticket: editedTicket.ticket,
           quantity: editedTicket.quantity + 1,
         };
-        return { ...prev, [id]: updatedQuantityTicket };
+        return updateCheckedoutTickets(
+          prev,
+          updatedQuantityTicket.ticket,
+          updatedQuantityTicket.quantity
+        );
       } else {
         if (editedTicket.quantity === 1) {
           const { [id]: omit, ...rest } = prev;
-          return { ...rest };
+          const updatedCheckedoutTickets = { ...rest };
+          const cartTickets = JSON.stringify(updatedCheckedoutTickets);
+          localStorage.setItem("cartTickets", cartTickets);
+          return updatedCheckedoutTickets;
         } else {
           const updatedQuantityTicket: CartTicket = {
             ticket: editedTicket.ticket,
             quantity: editedTicket.quantity - 1,
           };
-          return { ...prev, [id]: updatedQuantityTicket };
+          return updateCheckedoutTickets(
+            prev,
+            updatedQuantityTicket.ticket,
+            updatedQuantityTicket.quantity
+          );
         }
       }
     });
