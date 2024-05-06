@@ -1,18 +1,26 @@
+import { getTickets } from "./service/serviceTicket";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Cart, { CartTicket, CheckoutTicket } from "./components/Cart";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Tickets, { Ticket } from "./components/Tickets";
-import { ticketListsData } from "./ConstantData";
 import { discounts } from "./ConstantDiscounts";
 
 function App() {
-  const [ticketLists, setTicketLists] = useState<Ticket[]>(ticketListsData);
+  const [ticketLists, setTicketLists] = useState<Ticket[]>([]);
   const [checkedoutTickets, setCheckedoutTickets] = useState<CheckoutTicket>(
     {}
   );
   useEffect(() => {
+    getTickets()
+      .then((response) => {
+        console.log(response);
+        setTicketLists(response);
+      })
+      .catch((error) => {
+        console.error("Error: ", error);
+      });
     const cartTicketsString = localStorage.getItem("cartTickets");
     const cartTicketsObject: CheckoutTicket =
       cartTicketsString && JSON.parse(cartTicketsString);
