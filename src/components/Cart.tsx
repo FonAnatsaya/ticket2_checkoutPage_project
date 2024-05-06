@@ -14,7 +14,7 @@ export type CheckoutTicket = {
 type CartProp = {
   checkedoutTickets: CheckoutTicket;
   increaseOrDecrease: (id: number, operator: string) => void;
-  hasDiscount: (inputCode: string, totalPrice: number) => number;
+  hasDiscount: (discountCode: string, totalPrice: number) => Promise<number>;
 };
 
 const Cart: React.FC<CartProp> = ({
@@ -27,8 +27,9 @@ const Cart: React.FC<CartProp> = ({
   const [discount, setDiscount] = useState<number>(0);
 
   const calculateDiscount = (inputDiscount: string, price: number) => {
-    const discountValue: number = hasDiscount(inputDiscount, price);
-    setDiscount(discountValue);
+    hasDiscount(inputDiscount, price).then((response) => {
+      setDiscount(response || 0);
+    });
   };
 
   useEffect(() => {

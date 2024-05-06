@@ -1,4 +1,5 @@
 import { getTickets } from "./service/serviceTicket";
+import { getDiscount } from "./service/serviceTicket";
 import { useEffect, useState } from "react";
 import "./App.css";
 import Cart, { CartTicket, CheckoutTicket } from "./components/Cart";
@@ -12,10 +13,10 @@ function App() {
   const [checkedoutTickets, setCheckedoutTickets] = useState<CheckoutTicket>(
     {}
   );
+
   useEffect(() => {
     getTickets()
       .then((response) => {
-        console.log(response);
         setTicketLists(response);
       })
       .catch((error) => {
@@ -91,17 +92,11 @@ function App() {
     });
   };
 
-  const hasDiscount = (inputCode: string, totalPrice: number) => {
-    let discountValue: number = 0;
-    discounts.forEach((each) => {
-      if (inputCode === each.code) {
-        discountValue =
-          each.type === "percentage"
-            ? (each.discount / 100) * totalPrice
-            : each.discount;
-      }
-    });
-    return discountValue;
+  const hasDiscount = async (
+    discountCode: string,
+    totalPrice: number
+  ): Promise<number> => {
+    return await getDiscount(discountCode, totalPrice);
   };
 
   return (
