@@ -3,7 +3,7 @@
   flex-direction: column;
   background-color: #fefffe;
   min-width: 28%;
-  min-height: 374px;
+  min-height: 510px;
   justify-content: space-between;
 }
 .Cart__TicketSummary__CartLabel {
