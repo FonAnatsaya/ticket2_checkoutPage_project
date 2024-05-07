@@ -1,5 +1,5 @@
 import "./Tickets.css";
-import React, { Component } from "react";
+import React from "react";
 
 export type Ticket = {
   id: number;
